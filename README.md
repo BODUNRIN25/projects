@@ -25,36 +25,49 @@ In the intial data preparation phase wei performed the following task:
 
 ### Exploratory Data Analysis
 
-EDA involved exploring layoffs data sales data to answer key questions, such as:
-
-- What is the overall layoffs trend
-- what industry had the most layoffs?
-- is there a relationship between funding and percentage of layoffs?
-- What Year had the most layoffs?
+The exploratory data analysis of layoffs data addressed several key research questions, including: the overall trend in layoffs by year, identification of the year with the highest global layoff count, determination of the industry and countries most impacted by layoffs, and an assessment of the relationship between company status (e.g., post-IPO, acquired) and layoff frequency.
 
 
 ### Data Analysis
 
 ```sql
-SELECT *
-FROM layoffs
-WHERE percentage_layoffs = 1;
+-- this query retrives the number of companies that layoff workers by country
+select country, COUNT(company) num_companies, SUM(total_laid_off) total_layoffs
+from layoffs2
+group by country
+order by num_companies desc;
+
+-- this query retrieves the total layoffs by year
+select YEAR(date) Year, SUM(total_laid_off) tlayoffs
+from layoffs2
+where date is not NULL
+group by YEAR(date)
+order by tlayoffs desc;
+
+-- this query retrieves the industries with the most layoffs in descending order
+select industry, SUM(total_laid_off) tlayoffs
+from layoffs2
+group by industry
+order by tlayoffs desc;
+
+-- this query retrieves the most layoffs by stage in descending order
+select stage, SUM(total_laid_off) tlayoffs
+from layoffs2
+group by stage
+order by tlayoffs desc;
 ```
 
 ### Result/Findings
 
-The Analysis results are summarized below:
-1. The big guns had the most layoffs during the covid periods
-2. The retail industry laid off the most
-3. The is a 0.65 percent relationship between funding and layoffs
+The analysis yielded the following key results:
 
-### Recommendation
-
-Based on the analysis, i recommend the following actions: 
-- Encourage remote working
+- Post-IPO companies exhibited the highest incidence of layoffs.
+- The consumer industry experienced the greatest number of layoffs.
+- The United States recorded the highest volume of layoffs.
+- The year 2023 witnessed the highest concentration of layoffs within a single month.
 
 ## Limitations
-We removed all null values from the percentage layoffs columns and the total layyoffs because they would have affected the anaysis and the accuracy of the conclusions. There are still few outliers after the ommisions but we can see that there is a positive correlaton.
+Companies missing both percentage_laid_off and total_laid_off were removed to ensure the accuracy of the analysis.  While companies missing only percentage_laid_off were retained, this data gap prevented a full exploration of individual company workforce scale.
 
 
 
