@@ -8,7 +8,7 @@
 
 ## Project overview
 ---
-This data analysis project aims to investigate global company layoffs over the past three years. By analyzing various aspects of the dataset, I seek to uncover patterns, trends, and gain a deeper understanding of this phenomenon.
+This data analysis project aims to investigate global company layoffs over three years. By analyzing various aspects of the dataset, I seek to uncover patterns, trends, and gain a deeper understanding of this phenomenon.
 
 ## Data sources
 Layoffs data: This analysis utilizes the "layoffs.csv" dataset, which contains detailed information on layoffs conducted by companies globally.
